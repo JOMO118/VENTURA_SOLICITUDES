@@ -1,0 +1,7 @@
+{
+  "name": "app_politica1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
