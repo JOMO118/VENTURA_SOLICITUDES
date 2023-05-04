@@ -1,0 +1,250 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="centrar">solicitud</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item style="margin-bottom: 10px;">
+    <ion-label>
+      <h1 class="text_card">Bienvenido {{localname}}</h1>
+    </ion-label>
+  </ion-item>
+
+  <ion-card>
+    <ion-card-title>Seleccion de usuarios </ion-card-title>
+    <ion-card-content>
+
+
+
+
+
+      <div slot="content">
+
+
+        <ion-radio-group (ionChange)="ischecked($event)">
+          <ion-item>
+            <ion-label>FIJO</ion-label>
+            <ion-radio slot="end" value="F" class="label_radio"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>TEMPORAL</ion-label>
+            <ion-radio slot="end" value="T" class="label_radio"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+
+      <div *ngIf="selectuser=='F'">
+
+        <ion-item style="padding-top: 20px;"  (click)="Setopen(true)">
+          <ion-label><b> selecciona al colaborador </b></ion-label>
+          <ion-icon src="assets\icon\chevron-expand-outline.svg"></ion-icon>
+        </ion-item>
+        <ion-list *ngIf="selected.length">
+          <ion-item style="height: 50px;" *ngFor="let item of selected">
+            <ion-label> {{item['empleado_nombres']}} {{item['empleados_apellidos']}}</ion-label>
+            <ion-icon name="close" (click)="delete(item['empleado_nombres'], item['empleados_apellidos'])"></ion-icon>
+          </ion-item>
+        </ion-list>
+
+
+        <ion-modal #modal [isOpen]="modalstate"  [initialBreakpoint]="0.50" [breakpoints]="[ 0.25, 0.5, 0.75]"  (willDismiss)="Setopen(false)">
+          <ng-template>
+            <ion-content>
+              <ion-searchbar placeholder="nombre del colaborador" (click)="modal.setCurrentBreakpoint(0.75)"
+               (ionChange)="handleChange($event)"></ion-searchbar>
+
+              <ion-list>
+                <ion-item *ngFor="let res of result">
+                  <ion-checkbox slot="start" [(ngModel)]="res.selected" (ionChange)="seleccion()"> </ion-checkbox>
+                  <ion-label>
+                    {{res.empleado_nombres}} {{res.empleados_apellidos}}
+                  </ion-label>
+                </ion-item>
+                <ion-item *ngIf="cont_result === 0">
+                  <ion-label>
+                    No se encontraron resultados
+                  </ion-label>
+                </ion-item>
+
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </div>
+
+
+      <div *ngIf="selectuser=='T'">
+        <form [formGroup]="formulariouser">
+          <ion-item fill="outline">
+            <ion-label position="floating">Cedula</ion-label>
+            <ion-input placeholder="Ingrese la cedula" formControlName="cedula"></ion-input>
+          </ion-item>
+          <ion-item class="err" lines="none" *ngIf="errorControl['cedula'].errors">
+            <ion-label *ngIf="errorControl['cedula'].errors['required']">Campo obligatorio</ion-label>
+            <ion-label *ngIf="errorControl['cedula'].errors['minlength']">Cedula muy corta</ion-label>
+            <ion-label *ngIf="errorControl['cedula'].errors['pattern']">sin letras</ion-label>
+          </ion-item>
+
+
+          <ion-item class="mar_top1" fill="outline">
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input placeholder="Ingrese el nombre" formControlName="nombre"></ion-input>
+          </ion-item>
+          <ion-item class="err" lines="none" *ngIf="errorControl['nombre'].errors">
+            <ion-label *ngIf="errorControl['nombre'].errors['required']">Campo obligatorio </ion-label>
+            <ion-label *ngIf="errorControl['nombre'].errors['minlength'] || 
+          errorControl['nombre'].errors['pattern']">usuario invalido</ion-label>
+          </ion-item>
+
+          <ion-item class="mar_top1" fill="outline">
+            <ion-label position="floating">Cargo</ion-label>
+            <ion-input placeholder="Ingrese el cargo" formControlName="cargo"></ion-input>
+          </ion-item>
+          <ion-item class="err" lines="none" *ngIf="errorControl['cargo'].errors">
+            <ion-label *ngIf="errorControl['cargo'].errors['required']">Campo obligatorio </ion-label>
+            <ion-label *ngIf="errorControl['cargo'].errors['minlength'] || 
+          errorControl['cargo'].errors['pattern']">cargo invalido</ion-label>
+          </ion-item>
+        </form>
+        <ion-button color="primary" class="btn-Form" (click)="siguiente()"
+          [disabled]="formulariouser.invalid">Continuar</ion-button>
+      </div>
+
+
+    </ion-card-content>
+
+    <!-- -------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------------------------------------------------------------- -->
+
+  </ion-card>
+
+  <ion-card class="mar_top_card" *ngIf="selected.length || submit">
+    <ion-card-title> Formulario de permisos </ion-card-title>
+    <!-- <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let grupos of ListGrupo" style="width: 30vw;">
+          <ion-item>
+            <ion-checkbox slot="end" style="margin: 0;" (ionChange)="handleChangegrupo($event)" value="{{grupos.name}}"
+              [(ngModel)]="grupos.grupoChecked">
+            </ion-checkbox>
+            <ion-label style="font-size: small; margin: 0;">{{ grupos.name }}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+
+    <ion-list >
+      <ion-item style="margin: 10px;">
+        <ion-select interface="popover" placeholder="Seleccione el tipo" (ionChange)="handleChangetipo($event)">
+          <div *ngFor="let res of pruebaApi">
+            <ion-select-option value="{{ res.id_tipo }}" >{{
+              res.nombre_tipo
+              }}</ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-list >
+      <ion-item style="margin: 10px;">
+        <ion-select interface="popover" placeholder="Seleccione la categoria"
+          (ionChange)="handleChangecategoria($event)">
+          <div *ngFor="let res of pruebaApi">
+            <div *ngFor="let res2 of res.categorias">
+              <ion-select-option value="{{ res2.id_cat }}" *ngIf="res.id_tipo == valortipo">{{ res2.nombre_cat }}
+              </ion-select-option>
+            </div>
+          </div>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-list >
+      <ion-item style="margin: 10px;">
+        <ion-select interface="popover" placeholder="Seleccione la aplicación" (ionChange)="handleChangeapp($event)">
+          <div *ngFor="let res of pruebaApi">
+            <div *ngFor="let res2 of res.categorias">
+              <div *ngFor="let res3 of res2.aplicacion">
+                <ion-select-option value="{{ res3.id_app }}" *ngIf="res2.id_cat == valorcategoria">{{ res3.nombreapp }}
+                </ion-select-option>
+              </div>
+            </div>
+          </div>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+
+
+
+    <ion-list >
+      <ion-item style="margin: 10px;">
+        <ion-select interface="popover" placeholder="Seleccione la empresa" (ionChange)="handleChangegrupo($event)">
+          <div *ngFor="let grupo of ListGrupo">
+            <ion-select-option value="{{ grupo.name }}">{{
+              grupo.name
+              }}</ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+
+
+
+
+
+    <ion-button  color="primary" *ngIf=" valortipo && valorcategoria && valorapp && valorgrupo" (click)="load()"
+      class="btn-Form-end">Guardar</ion-button>
+
+
+    
+  </ion-card>
+
+  <ion-card class="mar_top_card" *ngIf="ListPersona_permiso != 0 ">
+    <ion-grid class="tabla_list">
+      <ion-row class="thead " > <!-- *ngFor="let item of selected" -->
+        <ion-col size="4">
+          <ion-label class="LblColor"> Colaborador</ion-label>
+        </ion-col>
+        <ion-col size="4">
+          <ion-label class="LblColor"> Aplicacion</ion-label>
+        </ion-col>
+        <ion-col size="2">
+          <ion-label class="LblColor"> Empresa</ion-label>
+        </ion-col>
+        <ion-col size="2">
+          <ion-label class="LblColor"> Eliminar</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let list of ListPersona_permiso; let i = index">
+        <ion-col size="4" >
+          <ion-label> {{list.Colaborador}} </ion-label>
+          <!-- <ion-icon name="close" (click)="delete(item['name'])"></ion-icon> -->
+        </ion-col>
+      <ion-col size="4">
+      <ion-label> {{list.Aplicacion}} </ion-label>
+    </ion-col>
+    <ion-col size="2">
+      <ion-label> {{list.Empresa}} </ion-label>
+    </ion-col>
+    <ion-col size="2" >
+      <ion-button color="danger" (click)="deleteload(i)" class="lista_delete">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-button  color="primary" (click)="summit()"   class="btn-Form-end">Enviar</ion-button> 
+  </ion-card>
+
+
+</ion-content>

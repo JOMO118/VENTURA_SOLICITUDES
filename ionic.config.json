@@ -1,7 +1,10 @@
 {
-  "name": "app_politica1",
+  "name": "VG_solicitudes",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
   "type": "angular"
 }

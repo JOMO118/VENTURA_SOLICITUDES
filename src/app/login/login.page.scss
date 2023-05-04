@@ -1,0 +1,77 @@
+
+ion-card{
+    background-color: rgba(255, 255, 255, 0.032); 
+}
+
+ion-card{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+ion-button{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+// .grupo_btn{
+//     display: flex;
+//     justify-content: flex-start;
+// }
+
+.btnIn{
+    // width: 60%;
+    margin-right: 30%;
+    margin-left: 30%;
+}
+.btnOut{
+    width: 35%;
+    padding-left: 10px;
+}
+
+.box-sombra{
+    box-shadow: 7px 13px 37px rgba(23, 83, 135, 0.6); 
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.mar_top{
+    margin-top: 5px;
+}
+
+.centrar{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+@media screen and (min-width: 500px) {
+
+    .box-sombra{
+        margin-left: 8%;
+        margin-right: 8%;
+    }
+    
+    
+}
+
+@media screen and (min-width: 800px) {
+
+    .box-sombra{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    
+    
+}
+
+@media screen and (min-width: 1200px) {
+
+    .box-sombra{
+        margin-left: 12%;
+        margin-right: 12%;
+    }
+    
+}

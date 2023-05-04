@@ -24,3 +24,15 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+ion-toolbar {
+    --color: #ffffff;
+    --background: #175489;
+}
+
+ion-content{
+    // background-image: url('assets/IMG/background.svg') 0 0/100% 100% no-repeat;
+    --background: url('assets/IMG/background.svg') 0 0/100% 100% no-repeat;
+}
+

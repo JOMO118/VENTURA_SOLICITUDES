@@ -1,0 +1,169 @@
+ion-item ion-label h1 {
+  font-size: 5vw;
+  text-align: center;
+  font-weight: bold;
+}
+
+ion-radio {
+  width: 20px;
+  height: 20px;
+}
+
+ion-radio::part(container) {
+  border-radius: 8px;
+  border: 2px solid #ddd;
+}
+
+ion-radio::part(mark) {
+  background: none;
+  transition: none;
+  transform: none;
+  border-radius: 0;
+}
+
+ion-radio.radio-checked::part(container) {
+  background: #1fa3fb;
+  border-color: transparent;
+}
+
+ion-radio.radio-checked::part(mark) {
+  width: 6px;
+  height: 10px;
+
+  border-width: 0px 2px 2px 0px;
+  border-style: solid;
+  border-color: #fff;
+
+  transform: rotate(45deg);
+}
+
+ion-radio-group {
+  display: flex;
+  padding: 0;
+}
+
+ion-radio-group ion-label {
+  font-size: small;
+}
+
+ion-radio-group {
+  width: 100%;
+}
+
+ion-card {
+  margin: 0;
+  padding: 0;
+  box-shadow: 12px 13px 19px -3px  rgba(23, 83, 135, 0.6)
+}
+
+.mar_top_card {
+  margin-top: 20px;
+}
+
+ion-card ion-item {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+
+.centrar {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+form ion-item .mar_top1 {
+  margin-top: 20px;
+}
+
+ion-checkbox {
+  --size: 20px;
+}
+
+ion-checkbox::part(container) {
+  border-radius: 6px;
+  border: 2px solid #000000;
+}
+
+ion-item ion-label {
+  font-size: 14px;
+}
+
+ion-card ion-card-title {
+  font-size: 4vw;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+
+}
+
+
+.btn-Form-end {
+
+  margin-top: 10px;
+  display: flex;
+  margin-left: 33%;
+  margin-right: 33%;
+
+}
+
+.btn-Form {
+
+  margin-top: 10px;
+  display: flex;
+  margin-left: 30%;
+  margin-right: 30%;
+
+}
+
+.text_card {
+  font-size: 6vw;
+  display: flex;
+  height: 10%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.label_radio {
+  margin-left: 0;
+}
+
+.err {
+  color: red;
+}
+
+ion-grid.tabla_list {
+  border: 1px solid #FFFFFF;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+ion-row.thead {
+  background:  #175387;
+}
+ion-grid ion-row ion-col ion-label.LblColor{
+ color: #FFFFFF;
+}
+
+ion-col {
+  border: 1px solid #000000;
+  font-size: 80%;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+ion-grid ion-row ion-col ion-label {
+  color: #000000;
+}
+
+.lista_delete{
+  display: contents;
+}
+

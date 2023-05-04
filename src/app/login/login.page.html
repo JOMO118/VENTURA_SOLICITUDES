@@ -1,0 +1,33 @@
+<ion-header >
+  <ion-toolbar >
+    <ion-title class="centrar">login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="box-sombra">
+    <img alt="VENTURA GROUP" style="border-radius: 50% ; align-items: center;" src="assets\IMG\LOGO VENTURA.png" />
+
+
+    <ion-card-content>
+      <form [formGroup]="formulariologin" (keyup.enter)="Buscar()" >   <!--(keyup.enter)="Buscar()" utilizar para habilitar el boton enter -->
+      <ion-item  fill="outline" >
+        <ion-label class="color_item" position="floating">Usuario</ion-label>
+        <ion-input formControlName="usuario" placeholder="Digite al usuario"></ion-input>
+      </ion-item>
+      
+      <ion-item class="color_item" fill="outline">
+        <ion-label class="color_item" position="floating">Contraseña</ion-label>
+        <ion-input formControlName="password" type="password" placeholder="Digite la contraseña"></ion-input>
+      </ion-item>
+    </form>
+    </ion-card-content>
+
+    <div class="grupo_btn">
+      <ion-button class="btnIn" shape="round" color="primary" (click)="Buscar()">Ingresar</ion-button>
+    </div>
+
+  </ion-card>
+
+</ion-content>

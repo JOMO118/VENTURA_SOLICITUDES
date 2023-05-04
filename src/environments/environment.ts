@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  url: "https://jsonplaceholder.typicode.com/users",
   production: false
 };
 

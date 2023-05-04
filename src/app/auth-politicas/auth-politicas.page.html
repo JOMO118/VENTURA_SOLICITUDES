@@ -1,0 +1,75 @@
+<ion-menu contentId="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title> <img alt="VENTURA GROUP" src="assets\IMG\LOGO VENTURA HORIZONTAL.png" />
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <b> BIENVENIDO</b>
+    a la app móvil de <b>VENTURA GROUP </b>, estamos aquí para brindarle la mejor experiencia. </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title style="font-size: small;">Aceptación de las politicas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+
+
+
+    <!-- ------------------------------------------------------------------------------------- -->
+    <ion-accordion-group #accordionGroup>
+      <div *ngFor="let politica of arrayPoliticas ; let i=index;">
+        <div *ngIf="i< countpolitica">
+          <ion-accordion value="{{politica.id}}" >
+            <ion-item slot="header" color="light">
+              <ion-label style="font-size: smaller;"><b>{{politica.title}}</b></ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-card >
+                <ion-card-header>
+                  <ion-card-title style="font-size:medium;"><b>{{politica.title}}</b></ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content style="font-size:xx-small;">
+                  {{politica.body}}
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-accordion>
+        </div>
+      </div>
+    </ion-accordion-group>
+    <!-- ------------------------------------------------------------------------------------- -->
+
+    <form [formGroup]="formularioCheck">
+<!-- 
+      <ion-item>
+        <ion-checkbox slot="start" formControlName="check1" checked="false" (click)="toggleAccordion(1)"> </ion-checkbox>
+        <ion-label style="font-size: small;">Acepto políticas nuevas</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox slot="start" formControlName="check2" checked="false"  (click)="toggleAccordion(2)"></ion-checkbox>
+        <ion-label style="font-size:50%;">Acepto políticas de tratamiento de datos</ion-label>
+      </ion-item> -->
+
+      <div *ngFor="let politica of arrayPoliticas ; let i=index">
+        <div *ngIf="i<countpolitica">
+          <ion-item>
+        <ion-checkbox value="{{politica.id}}" slot="start"  checked="false" (click)="toggleAccordion(politica.id)" (ionChange)="prueba($event)"> </ion-checkbox>
+        <ion-label style="font-size: xx-small;">Acepto políticas <b><u>{{politica.title}}</u></b> </ion-label>
+      </ion-item>
+      </div>
+    </div>
+    </form>
+    <ion-button class="btn" shape="round" fill="outline" color="dark" (click)="verificacion()">Finalizar</ion-button>
+  </ion-content>
+</div>
