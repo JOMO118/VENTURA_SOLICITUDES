@@ -36,3 +36,29 @@ ion-content{
     --background: url('assets/IMG/background.svg') 0 0/100% 100% no-repeat;
 }
 
+@media screen and (min-width: 360px) {
+    ion-content{
+    --background: url('assets/IMG/backgroundmovil1.svg') 0 0/100% 100% no-repeat;
+    }
+
+}
+@media screen and (min-width: 768px) {
+    ion-content{
+    --background: url('assets/IMG/backgroundtablet.svg') 0 0/100% 100% no-repeat;
+    }
+
+}
+@media screen and (min-width: 1366px) {
+    ion-content{
+    --background: url('assets/IMG/backgroundpc.svg') 0 0/100% 100% no-repeat;
+    }
+
+}
+@media screen and (min-width: 1920px) {
+    ion-content{
+    --background: url('assets/IMG/backgroundpclarge.svg') 0 0/100% 100% no-repeat;
+    }
+
+}
+ 
+
