@@ -1,0 +1,14 @@
+npx cap add android	//crear la caprte android       
+
+npx cap sync		// sincronizar los cambios
+
+npx cap open android	// Abrir android studio
+
+---------------------------------------------------------
+
+ionic cordova build
+
+ionic cordova platform add android // esta es mejor
+
+
+para que quede en modo ligth se debe eliminar de los archivos index.html y style de asset en platform android 
