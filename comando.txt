@@ -11,4 +11,5 @@ ionic cordova build
 ionic cordova platform add android // esta es mejor
 
 
-para que quede en modo ligth se debe eliminar de los archivos index.html y style de asset en platform android 
+cambiar en gradel-wrapper.properties ---> distributionUrl = https\://services.gradle.org/distributions/gradle-7.3-all.zip
+agregar 
