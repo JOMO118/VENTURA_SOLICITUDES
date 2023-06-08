@@ -4,6 +4,7 @@
 
 export const environment = {
   url: "https://jsonplaceholder.typicode.com/users",
+  urlservice: "http://172.30.200.230/ventura_app/Controller/Controller_",
   production: false
 };
 

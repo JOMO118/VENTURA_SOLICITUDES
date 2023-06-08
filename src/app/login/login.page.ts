@@ -16,6 +16,8 @@ export class LoginPage implements OnInit {
   formulariologin: FormGroup;
   arraylist: any;
   validate_message: any
+  splash = true;
+  splashScreen: any
 
 
   constructor(public fb: FormBuilder, private router: Router, public alertController: AlertController, public usuariosservicios: UsuariosService, public navCtrl: NavController) {
@@ -28,19 +30,23 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+
+
   }
 
   async Buscar() {
     var f = this.formulariologin.value;
+    console.log(f.usuario)
     if (f.usuario) {
-      await this.usuariosservicios.getuser(f.cedula, f.password).subscribe(res => {
+      await this.usuariosservicios.getuser(f.usuario, f.password).subscribe(res => {
         this.validate_message = res[0].msm
         this.validaruser()
-      },error => {
-        this.validate_message= "Error al conectarse a la base de datos"
-        this.alertNoexiste()
       }
-    );
+        , error => {
+          this.validate_message = "Error al conectarse a la base de datos"
+          this.alertNoexiste()
+        }
+      );
 
     }
 
