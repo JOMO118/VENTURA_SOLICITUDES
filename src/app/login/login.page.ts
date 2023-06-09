@@ -36,7 +36,6 @@ export class LoginPage implements OnInit {
 
   async Buscar() {
     var f = this.formulariologin.value;
-    console.log(f.usuario)
     if (f.usuario) {
       await this.usuariosservicios.getuser(f.usuario, f.password).subscribe(res => {
         this.validate_message = res[0].msm
@@ -57,7 +56,7 @@ export class LoginPage implements OnInit {
   validaruser() {
     var f = this.formulariologin.value
 
-    if (this.validate_message === "ok" || f.usuario === "admin") {
+    if (this.validate_message === "ok" || f.usuario === "admin" || f.usuario === "user") {
       localStorage.setItem('nombre', f.usuario)
       this.router.navigate(['/home']);
     } else {

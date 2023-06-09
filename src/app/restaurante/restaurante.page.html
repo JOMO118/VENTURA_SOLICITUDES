@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>restaurante</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <ion-item>
     <ion-label>
@@ -22,8 +16,8 @@
       <form [formGroup]="formularioRestaurante">
         <ion-item>
           <ion-label position="stacked">Pedido</ion-label>
-          <ion-input [clearInput]="true" placeholder="Ingrese la cantidad de comidas"
-            formControlName="cantidad" (ionChange)="valor_fecha()"></ion-input>
+          <ion-input [clearInput]="true" placeholder="Ingrese la cantidad de comidas" formControlName="cantidad"
+            (ionChange)="valor_fecha()"></ion-input>
         </ion-item>
         <ion-item class="err" lines="none" *ngIf="errorControl['cantidad'].errors">
           <ion-label *ngIf="errorControl['cantidad'].errors['required']">campo obligatorio </ion-label>
@@ -46,49 +40,50 @@
       <ion-datetime #datetime [min]="today" [isDateEnabled]="isWeekday" [(ngModel)]="select_day"
         (ionChange)="valor_fecha()" presentation="date">
       </ion-datetime>
-      <ion-button color="primary" class="btn-Form-end" [disabled]="state_button" (click)="addPedido()">Agregar</ion-button> 
+      <ion-button color="primary" class="btn-Form-end" [disabled]="state_button"
+        (click)="addPedido()">Agregar</ion-button>
 
 
-    <ion-card class="mar_top_card"  *ngIf="listPedido.length !== 0">
-    <ion-grid class="tabla_list">
-      <ion-row class="thead " > 
-        <ion-col size="3">
-          <ion-label class="LblColor"> Fecha</ion-label>
-        </ion-col>
-        <ion-col size="2">
-          <ion-label class="LblColor"> Cant.</ion-label>
-        </ion-col>
-        <ion-col size="4">
-          <ion-label class="LblColor"> Sitio</ion-label>
-        </ion-col>
-        <ion-col size="3">
-          <ion-label class="LblColor"> Cancelar</ion-label>
-        </ion-col>
-      
-      </ion-row>
-      <ion-row *ngFor="let lista of listPedido; let i = index" >
-        <ion-col size="3"  >
-          <ion-label> {{lista.Fecha | date:'dd-MM-yyyy' }} </ion-label>
-        </ion-col>
-        <ion-col size="2"  >
-          <ion-label> {{lista.Cantidad }} </ion-label>
-        </ion-col>
-        <ion-col size="4"  >
-          <ion-label> {{lista.Sitio }} </ion-label>
-        </ion-col>
-    <ion-col size="3" >
-      <ion-button color="danger" class="lista_delete" (click)="delete_date(i)">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
-    </ion-col>
-        
-      </ion-row>
-    </ion-grid>
+      <ion-card class="mar_top_card" *ngIf="listPedido.length !== 0">
+        <ion-grid class="tabla_list">
+          <ion-row class="thead ">
+            <ion-col size="3">
+              <ion-label class="LblColor"> Fecha</ion-label>
+            </ion-col>
+            <ion-col size="2">
+              <ion-label class="LblColor"> Cant.</ion-label>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label class="LblColor"> Sitio</ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-label class="LblColor"> Cancelar</ion-label>
+            </ion-col>
+
+          </ion-row>
+          <ion-row *ngFor="let lista of listPedido; let i = index">
+            <ion-col size="3">
+              <ion-label> {{lista.Fecha | date:'dd-MM-yyyy' }} </ion-label>
+            </ion-col>
+            <ion-col size="2">
+              <ion-label> {{lista.Cantidad }} </ion-label>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label> {{lista.Sitio }} </ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button color="danger" class="lista_delete" (click)="delete_date(i)">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
 
 
-    <ion-button  color="primary"  (click)="save_date()" class="btn-Form-end">Guardar</ion-button> 
-  </ion-card>
- 
+        <ion-button color="primary" (click)="save_date()" class="btn-Form-end">Guardar</ion-button>
+      </ion-card>
+
 
     </ion-card-content>
   </ion-card>

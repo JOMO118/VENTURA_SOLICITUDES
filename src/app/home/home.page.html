@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="centrar">Menu de aplicaciones</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
   <ion-item>
@@ -14,30 +8,31 @@
 
 
 
-  <ion-card>
+  <ion-card *ngIf="roles[1].mostrar || roles[0].mostrar">
     <ion-card-header>
       <ion-card-title class="text_card">Servicio de solicitud de permisos </ion-card-title>
-
     </ion-card-header>
 
     <ion-card-content>
 
       <ion-grid>
         <ion-row>
-          <ion-col >
-            <ion-label class="text_card">Crear</ion-label>
+          <ion-col *ngIf="roles[0].mostrar">
 
-              <ion-button class="btn_card1" fill="clear"  (click)="crearSolicitud()">
-                <img src="assets\icon\icon-crear.svg" alt="PEDIDO DE COMIDA">
-              </ion-button>
+            <ion-label class="text_card">{{roles[0].nombre}}</ion-label>
+            <!-- <ion-label class="text_card">Crear</ion-label> -->
+
+            <ion-button class="btn_card1" fill="clear" (click)="crearSolicitud()">
+              <img src="assets\icon\icon-crear.svg" alt="Crear solicitudes">
+            </ion-button>
 
           </ion-col>
-          <ion-col>
-            <ion-label class="text_card">Inactivar</ion-label>
+          <ion-col *ngIf="roles[1].mostrar">
+            <ion-label class="text_card">{{roles[1].nombre}}</ion-label>
 
-              
+
             <ion-button class="btn_card1" fill="clear" (click)="inactivar()">
-              <img src="assets\icon\icon-inactivar.svg" alt="PEDIDO DE COMIDA">
+              <img src="assets\icon\icon-inactivar.svg" alt="Inactivar solicitudes">
             </ion-button>
 
           </ion-col>
@@ -48,15 +43,15 @@
     </ion-card-content>
   </ion-card>
 
-  
-  <ion-card>
+
+  <ion-card *ngIf="roles[2].mostrar">
     <ion-card-header>
-      <ion-card-title class="text_card">Servicio de restaurante</ion-card-title>
+      <ion-card-title class="text_card">{{roles[2].nombre}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
 
-      <ion-button class="btn_card1" fill="clear"  (click)="Pedir()">
+      <ion-button class="btn_card1" fill="clear" (click)="Pedir()">
         <img src="assets\icon\icon-restaurante.svg" alt="PEDIDO DE COMIDA">
       </ion-button>
 

@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="centrar">solicitud</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
   <ion-item style="margin-bottom: 10px;">
@@ -38,7 +32,7 @@
 
       <div *ngIf="selectuser=='F'">
 
-        <ion-item style="padding-top: 20px;"  (click)="Setopen(true)">
+        <ion-item style="padding-top: 20px;" (click)="Setopen(true)">
           <ion-label><b> selecciona al colaborador </b></ion-label>
           <ion-icon src="assets\icon\chevron-expand-outline.svg"></ion-icon>
         </ion-item>
@@ -50,11 +44,12 @@
         </ion-list>
 
 
-        <ion-modal #modal [isOpen]="modalstate"  [initialBreakpoint]="0.50" [breakpoints]="[ 0.25, 0.5, 0.75]"  (willDismiss)="Setopen(false)">
+        <ion-modal #modal [isOpen]="modalstate" [initialBreakpoint]="0.50" [breakpoints]="[ 0.25, 0.5, 0.75]"
+          (willDismiss)="Setopen(false)">
           <ng-template>
             <ion-content>
               <ion-searchbar placeholder="nombre del colaborador" (click)="modal.setCurrentBreakpoint(0.75)"
-               (ionChange)="handleChange($event)"></ion-searchbar>
+                (ionChange)="handleChange($event)"></ion-searchbar>
 
               <ion-list>
                 <ion-item *ngFor="let res of result">
@@ -138,11 +133,11 @@
       </ion-row>
     </ion-grid> -->
 
-    <ion-list >
+    <ion-list>
       <ion-item style="margin: 10px;">
         <ion-select interface="popover" placeholder="Seleccione el tipo" (ionChange)="handleChangetipo($event)">
           <div *ngFor="let res of pruebaApi">
-            <ion-select-option value="{{ res.id_tipo }}" >{{
+            <ion-select-option value="{{ res.id_tipo }}">{{
               res.nombre_tipo
               }}</ion-select-option>
           </div>
@@ -150,7 +145,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list >
+    <ion-list>
       <ion-item style="margin: 10px;">
         <ion-select interface="popover" placeholder="Seleccione la categoria"
           (ionChange)="handleChangecategoria($event)">
@@ -164,7 +159,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list >
+    <ion-list>
       <ion-item style="margin: 10px;">
         <ion-select interface="popover" placeholder="Seleccione la aplicación" (ionChange)="handleChangeapp($event)">
           <div *ngFor="let res of pruebaApi">
@@ -182,7 +177,7 @@
 
 
 
-    <ion-list >
+    <ion-list>
       <ion-item style="margin: 10px;">
         <ion-select interface="popover" placeholder="Seleccione la empresa" (ionChange)="handleChangegrupo($event)">
           <div *ngFor="let grupo of ListGrupo">
@@ -199,16 +194,16 @@
 
 
 
-    <ion-button  color="primary" *ngIf=" valortipo && valorcategoria && valorapp && valorgrupo" (click)="load()"
+    <ion-button color="primary" *ngIf=" valortipo && valorcategoria && valorapp && valorgrupo" (click)="load()"
       class="btn-Form-end">Guardar</ion-button>
 
 
-    
+
   </ion-card>
 
   <ion-card class="mar_top_card" *ngIf="ListPersona_permiso != 0 ">
     <ion-grid class="tabla_list">
-      <ion-row class="thead " > <!-- *ngFor="let item of selected" -->
+      <ion-row class="thead "> <!-- *ngFor="let item of selected" -->
         <ion-col size="4">
           <ion-label class="LblColor"> Colaborador</ion-label>
         </ion-col>
@@ -223,27 +218,27 @@
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let list of ListPersona_permiso; let i = index">
-        <ion-col size="4" >
+        <ion-col size="4">
           <ion-label> {{list.Colaborador}} </ion-label>
           <!-- <ion-icon name="close" (click)="delete(item['name'])"></ion-icon> -->
         </ion-col>
-      <ion-col size="4">
-      <ion-label> {{list.Aplicacion}} </ion-label>
-    </ion-col>
-    <ion-col size="2">
-      <ion-label> {{list.Empresa}} </ion-label>
-    </ion-col>
-    <ion-col size="2" >
-      <ion-button color="danger" (click)="deleteload(i)" class="lista_delete">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
-    </ion-col>
-        
+        <ion-col size="4">
+          <ion-label> {{list.Aplicacion}} </ion-label>
+        </ion-col>
+        <ion-col size="2">
+          <ion-label> {{list.Empresa}} </ion-label>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button color="danger" (click)="deleteload(i)" class="lista_delete">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-col>
+
       </ion-row>
     </ion-grid>
 
 
-    <ion-button  color="primary" (click)="summit()"   class="btn-Form-end">Enviar</ion-button> 
+    <ion-button color="primary" (click)="summit()" class="btn-Form-end">Enviar</ion-button>
   </ion-card>
 
 
