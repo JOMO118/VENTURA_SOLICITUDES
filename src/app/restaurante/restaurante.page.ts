@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertController,IonContent } from '@ionic/angular';
+import { AlertController, IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-restaurante',
@@ -22,11 +22,52 @@ export class RestaurantePage implements OnInit {
 
   formularioRestaurante: FormGroup;
 
-
+  ubicaciones = [
+    'ALM-Mantenimiento',
+    'ALM-Operaciones',
+    'COS-Compras',
+    'COS-Contabilidad',
+    'COS-Gerencia',
+    'COS-Operaciones',
+    'COS-Planeacion',
+    'COS-Recursos humanos',
+    'COS-TI',
+    'M13-Bomberos',
+    'M13-CCTV',
+    'M13-DIAN',
+    'M13-Operaciones',
+    'M13-Radicacion',
+    'M13-SST',
+    'M13-Subestacion',
+    'Opp-Almacen',
+    'OPP-Auditoria',
+    'Opp-Calidad',
+    'Opp-CCTV',
+    'Opp-Contenedor',
+    'Opp-Control Operativo',
+    'Opp-Equipo Movil',
+    'Opp-Infraestructura',
+    'Opp-Mercancias',
+    'Opp-Operaciones',
+    'Opp-Recepcion',
+    'Opp-Recursos humanos',
+    'Opp-Silos y Bodegas',
+    'Opp-SST',
+    'Opp-Subestacion',
+    'Opp-Taller Mantenimiento',
+    'Opp-TI',
+    'Opp-TorredeControl',
+    'ZFR-Operaciones',
+    'ZL-Oficina',
+    'ZOL-Almacen',
+    'ZOL-Enturnamiento',
+    'ZOL-Mantenimiento',
+    'ZOL-OficnaBGP',
+  ]
 
   constructor(public fb: FormBuilder, public alertController: AlertController) {
     this.formularioRestaurante = this.fb.group({
-      'cantidad': new FormControl(null, [Validators.required, Validators.pattern('[1-9]*')]),
+      'cantidad': new FormControl(null, [Validators.required, Validators.pattern('^[1-9][0-9]*$')]),
       'sitio': new FormControl(null, [Validators.required]),
 
     })
@@ -41,7 +82,7 @@ export class RestaurantePage implements OnInit {
     this.getDate()
     let list = localStorage.getItem('Pedidos')!
     this.listPedido = JSON.parse(list)
-    if(!this.listPedido){
+    if (!this.listPedido) {
       this.listPedido = []
     }
   }
@@ -50,7 +91,7 @@ export class RestaurantePage implements OnInit {
     const date = new Date();
 
     // if (date.getHours() < 10) {
-      this.today = date.getFullYear() + '-' + '0' + (date.getMonth() + 1) + '-' + ('0' + date.getDate()).slice(-2);
+    this.today = date.getFullYear() + '-' + '0' + (date.getMonth() + 1) + '-' + ('0' + date.getDate()).slice(-2);
     // } else {
     //   this.today = date.getFullYear() + '-' + '0' + (date.getMonth() + 1) + '-' + ('0' + (date.getDate() + 1)).slice(-2);
     // }
@@ -72,32 +113,32 @@ export class RestaurantePage implements OnInit {
     console.clear()
 
 
-    if(this.errorControl['cantidad'].errors || this.errorControl['sitio'].errors || !this.select_day){
+    if (this.errorControl['cantidad'].errors || this.errorControl['sitio'].errors || !this.select_day) {
       this.state_button = true
-    }else{
+    } else {
       this.state_button = false
     }
     //this.alertContinued()
 
   }
 
-  addPedido(){
+  addPedido() {
     console.clear()
     let date = new Date(this.select_day)
-    let value = {Fecha: date.toLocaleDateString('en-US'), Cantidad: this.formularioRestaurante.value.cantidad , Sitio: this.formularioRestaurante.value.sitio};
+    let value = { Fecha: date.toLocaleDateString('en-US'), Cantidad: this.formularioRestaurante.value.cantidad, Sitio: this.formularioRestaurante.value.sitio };
 
 
-   if(!this.listPedido.some((arr:any) =>arr.Fecha === value.Fecha && arr.Sitio === value.Sitio ) ){
-    this.listPedido.push(value)
-    this.scrollbottom()
-   }else{
-    this.alertExiste()
-   }
-    
-    
+    if (!this.listPedido.some((arr: any) => arr.Fecha === value.Fecha && arr.Sitio === value.Sitio)) {
+      this.listPedido.push(value)
+      this.scrollbottom()
+    } else {
+      this.alertExiste()
+    }
+
+
   }
 
-  async save_date(){ 
+  async save_date() {
     const alert = await this.alertController.create({
       header: '¿Desea enviar este pedido?',
       buttons: [
@@ -118,7 +159,7 @@ export class RestaurantePage implements OnInit {
 
     if (role === "si") {
       console.log(this.listPedido)
-      localStorage.setItem('Pedidos',JSON.stringify(this.listPedido))
+      localStorage.setItem('Pedidos', JSON.stringify(this.listPedido))
 
       const alert = await this.alertController.create({
         header: 'SOLICITUD ENVIADA',
@@ -133,23 +174,23 @@ export class RestaurantePage implements OnInit {
     }
   }
 
-  delete_date(e: any){
-    this.listPedido.splice(e,1)
+  delete_date(e: any) {
+    this.listPedido.splice(e, 1)
   }
 
-  async alertExiste(){
+  async alertExiste() {
     const alert = await this.alertController.create({
-          header: "Este pedido ya existe",
-          buttons: ["aceptar"],
-        });
+      header: "Este pedido ya existe",
+      buttons: ["aceptar"],
+    });
 
-        await alert.present();
+    await alert.present();
   }
 
-  scrollbottom(){
+  scrollbottom() {
     setTimeout(() => {
       this.content.scrollToBottom(500);
-     }, 100);
+    }, 100);
   }
 
 

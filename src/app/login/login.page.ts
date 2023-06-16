@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
+import { error } from 'console';
 
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -41,10 +42,6 @@ export class LoginPage implements OnInit {
         this.validate_message = res[0].msm
         this.validaruser()
       }
-        , error => {
-          this.validate_message = "Error al conectarse a la base de datos"
-          this.alertNoexiste()
-        }
       );
 
     }

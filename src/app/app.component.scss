@@ -1,3 +1,21 @@
 ion-button {
     --color: ffffff;
 }
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-container {
+    flex-basis: 90%;
+    text-align: center;
+}
+
+.button-container {
+    flex-basis: 10%;
+    display: flex;
+    justify-content: flex-end;
+}

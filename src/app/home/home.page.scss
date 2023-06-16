@@ -72,6 +72,7 @@ ion-grid ion-row ion-col ion-button {
         font-weight: bold;
     }
 }
+
 @media screen and (min-width: 600px) {
 
     ion-card {
@@ -96,6 +97,7 @@ ion-grid ion-row ion-col ion-button {
         font-weight: bold;
     }
 }
+
 @media screen and (min-width: 900px) {
 
     ion-item ion-label h1 {
@@ -127,6 +129,11 @@ ion-grid ion-row ion-col ion-button {
     }
 }
 
+@media screen and (min-width: 1024px) {
+    ion-card {
+        height: 40vh;
+    }
+}
 
 @media screen and (max-height: 400px) {
 

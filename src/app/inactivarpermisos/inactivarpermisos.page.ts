@@ -62,9 +62,6 @@ export class InactivarpermisosPage implements OnInit {
     this.cont_result = 1
     this.modalstate = isOpen;
 
-
-
-
     if (!this.datas && isOpen) {
       this.loadingModal(0)
       this.CargaUsuarios()
@@ -124,12 +121,12 @@ export class InactivarpermisosPage implements OnInit {
 
         let i = null
 
-        
-        
+
+
         i = list.findIndex((item: any) => item.Colaborador === res.Colaborador && item.Aplicacion === res.Aplicacion && item.Empresa === res.Empresa)
         console.log(i)
         list.splice(i, 1)
-       
+
         // list.find((item:any)=>{
         //   if(res.Colaborador === item.colaborador){
         //     console.log("ok")
@@ -153,7 +150,7 @@ export class InactivarpermisosPage implements OnInit {
 
       await alert.present();
       localStorage.removeItem('colaboradores')
-      localStorage.setItem('colaboradores',  JSON.stringify(this.listPersona_nueva))
+      localStorage.setItem('colaboradores', JSON.stringify(this.listPersona_nueva))
       this.router.navigate(['/home']);
 
 
@@ -168,7 +165,7 @@ export class InactivarpermisosPage implements OnInit {
 
 
 
- 
+
 
 
 

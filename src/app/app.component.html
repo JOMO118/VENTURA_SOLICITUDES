@@ -1,12 +1,20 @@
 <ion-app>
   <ion-header>
     <ion-toolbar *ngIf="mostrarBoton">
-      <ion-button (click)="logout()" fill="clear">
-        <ion-icon name="log-out-outline"></ion-icon>
-
-      </ion-button>
-      <ion-title>{{headerText}}</ion-title>
+      <div class="header-content">
+        <div class="title-container">
+          <ion-title>{{headerText}}</ion-title>
+        </div>
+        <div class="button-container">
+          <ion-button (click)="logout()" fill="clear">
+            <ion-icon name="log-out-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
     </ion-toolbar>
   </ion-header>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-content>
+    <ion-router-outlet></ion-router-outlet>
+  </ion-content>
 </ion-app>

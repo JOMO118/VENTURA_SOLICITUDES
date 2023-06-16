@@ -1,52 +1,41 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Inactivar Permisos</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-
-  <ion-item style="padding-top: 20px;" (click)="Setopen(true)">
-    <ion-label><b> selecciona al colaborador </b></ion-label>
-    <ion-icon src="assets\icon\chevron-expand-outline.svg"></ion-icon>
+<ion-item style="padding-top: 20px;" (click)="Setopen(true)">
+  <ion-label><b> selecciona al colaborador </b></ion-label>
+  <ion-icon src="assets\icon\chevron-expand-outline.svg"></ion-icon>
+</ion-item>
+<ion-list *ngIf="selected.length">
+  <ion-item style="height: 60px;" *ngFor="let item of selected">
+    <ion-label class="ion-text-wrap">
+      {{item['Colaborador']}} <br>
+      Permiso en: {{item['Aplicacion']}} en {{item['Empresa']}} <br>
+    </ion-label>
+    <ion-icon name="close" (click)="delete(item['Colaborador'], item['Aplicacion'], item['Empresa'])"></ion-icon>
   </ion-item>
-  <ion-list *ngIf="selected.length">
-    <ion-item style="height: 50px;" *ngFor="let item of selected">
-      <ion-label class="ion-text-wrap">
-        {{item['Colaborador']}} <br>
-        Permiso en: {{item['Aplicacion']}}  en {{item['Empresa']}}
-      </ion-label>
-      <ion-icon name="close" (click)="delete(item['Colaborador'], item['Aplicacion'], item['Empresa'])"></ion-icon>
-    </ion-item>
-  </ion-list>
+</ion-list>
 
 
-  <ion-modal #modal [isOpen]="modalstate" [initialBreakpoint]="0.50" [breakpoints]="[ 0.25, 0.5, 0.75]"
-    (willDismiss)="Setopen(false)">
-    <ng-template>
-      <ion-content>
-        <ion-searchbar placeholder="nombre del colaborador" (click)="modal.setCurrentBreakpoint(0.75)"
-          (ionChange)="handleChange($event)"></ion-searchbar>
+<ion-modal #modal [isOpen]="modalstate" [initialBreakpoint]="0.50" [breakpoints]="[ 0.25, 0.5, 0.75]"
+  (willDismiss)="Setopen(false)">
+  <ng-template>
+    <ion-content>
+      <ion-searchbar placeholder="nombre del colaborador" (click)="modal.setCurrentBreakpoint(0.75)"
+        (ionChange)="handleChange($event)"></ion-searchbar>
 
-        <ion-list>
-          <ion-item *ngFor="let res of result">
-            <ion-checkbox slot="start" [(ngModel)]="res.selected" (ionChange)="seleccion()"> </ion-checkbox>
-            <ion-label>
-              {{res['Colaborador']}}
-            </ion-label>
-          </ion-item>
-          <ion-item *ngIf="cont_result === 0 || result.length === 0 ">
-            <ion-label>
-              No se encontraron resultados
-            </ion-label>
-          </ion-item>
+      <ion-list>
+        <ion-item *ngFor="let res of result">
+          <ion-checkbox slot="start" [(ngModel)]="res.selected" (ionChange)="seleccion()"> </ion-checkbox>
+          <ion-label>
+            {{res['Colaborador']}}
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf="cont_result === 0 || result.length === 0 ">
+          <ion-label>
+            No se encontraron resultados
+          </ion-label>
+        </ion-item>
 
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
-  <ion-button  color="primary" (click)="summit()"  *ngIf="selected.length " class="btn-Form-end">Enviar</ion-button> 
-
-</ion-content>
+<ion-button color="primary" (click)="summit()" *ngIf="selected.length " class="btn-Form-end">Enviar</ion-button>

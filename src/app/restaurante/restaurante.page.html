@@ -26,10 +26,10 @@
         <ion-item> <ion-label>Sitio</ion-label>
           <ion-select [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" interface="popover"
             placeholder="Seleccione el sitio" formControlName="sitio" (ionChange)="valor_fecha()">
-            <ion-select-option value="PUERTO OPP">PUERTO OPP </ion-select-option>
-            <ion-select-option value="COSMOS">COSMOS </ion-select-option>
-            <ion-select-option value="GRUPO PORTUARIO">GRUPO PORTUARIO </ion-select-option>
-            <ion-select-option value="ZOL">ZOL </ion-select-option>
+            <div *ngFor="let item of ubicaciones">
+              <ion-select-option value="{{item}}">{{item}} </ion-select-option>
+
+            </div>
           </ion-select>
         </ion-item>
         <ion-item class="err" lines="none" *ngIf="errorControl['sitio'].errors">

@@ -44,7 +44,7 @@ export class SolicitudPage implements OnInit {
 
   customPopoverOptions = {
     header: 'Aplicación',
-    message: 'Escoja el tipo de aplicacion que se le dara permiso al usuario',
+    message: 'Escoja el tipo de aplicación que se le dara permiso al usuario',
   };
 
 
@@ -163,7 +163,8 @@ export class SolicitudPage implements OnInit {
       this.result = res
       this.datas = res
       this.loadingCtrl.dismiss()
-
+    }, error => {
+      this.loadingCtrl.dismiss()
     })
   }
 
@@ -339,7 +340,7 @@ export class SolicitudPage implements OnInit {
 
     if (role === "no") {
 
-      localStorage.setItem('colaboradores',  JSON.stringify(this.ListPersona_permiso))
+      localStorage.setItem('colaboradores', JSON.stringify(this.ListPersona_permiso))
 
       this.resetSelect()
       this.resetGrupo()
@@ -382,7 +383,7 @@ export class SolicitudPage implements OnInit {
       this.CrearLista(f.nombre)
     }
 
-    if(this.cont_repetidas){
+    if (this.cont_repetidas) {
       this.alertPermiso()
     }
 
@@ -399,14 +400,13 @@ export class SolicitudPage implements OnInit {
         })
       })
     })
-    
+
     console.log(colaborador)
-    if (!this.ListPersona_permiso.some((element: any) => element.Colaborador === colaborador && element.Aplicacion === this.msj_app && element.Empresa === this.valorgrupo))
-    {
+    if (!this.ListPersona_permiso.some((element: any) => element.Colaborador === colaborador && element.Aplicacion === this.msj_app && element.Empresa === this.valorgrupo)) {
       this.ListPersona_permiso.push({ Colaborador: colaborador, Aplicacion: this.msj_app, Empresa: this.valorgrupo })
-    }else{
+    } else {
       this.cont_repetidas = true
-      
+
     }
     // this.ListPersona_permiso.some((element: any) => {
     //   if (this.ListPersona_permiso.length === 0) {
@@ -426,7 +426,7 @@ export class SolicitudPage implements OnInit {
 
   }
 
-  async alertPermiso(){
+  async alertPermiso() {
     const alert = await this.alertController.create({
       header: "Este permiso ya está guardado",
       buttons: ["aceptar"],

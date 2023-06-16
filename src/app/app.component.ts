@@ -51,14 +51,18 @@ export class AppComponent {
   async logout() {
     const alert = await this.alertController.create({
       header: '¿Desea cerrar sesión?',
+      cssClass: 'custom-alert',
       buttons: [
         {
           text: 'NO',
           role: 'no',
+          cssClass: 'alert-button-cancel',
+
         },
         {
           text: 'SI',
           role: 'si',
+          cssClass: 'alert-button-confirm',
         },
       ],
     });
