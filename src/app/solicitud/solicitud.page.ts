@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuariosService } from '../services/usuarios.service';
 import { AlertController, IonContent, LoadingController } from '@ionic/angular';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
@@ -140,6 +140,9 @@ export class SolicitudPage implements OnInit {
     },
   ];
 
+  Tipocheck: any;
+  Categoriacheck: any;
+
 
   constructor(public fb: FormBuilder, private router: Router, public usuariosservicios: UsuariosService,
     public alertController: AlertController, private loadingCtrl: LoadingController) {
@@ -147,7 +150,8 @@ export class SolicitudPage implements OnInit {
       'cedula': new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(6)]),
       'nombre': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.pattern('^[a-z A-Z]+$'),]),
       'cargo': new FormControl(null, [Validators.required, Validators.minLength(4), Validators.pattern('^[a-z A-Z]+$'),]),
-
+      tiposchecks: this.fb.array([]),
+      categoriaschecks: this.fb.array([])
     })
   }
   get errorControl() {
@@ -478,5 +482,51 @@ export class SolicitudPage implements OnInit {
     }, 100);
   }
 
+  CambioTipo(e: any) {
 
+    const checks: FormArray = this.formulariouser.get('tiposchecks') as FormArray;
+
+    if (e.target.checked) {
+
+      checks.push(new FormControl(e.target.value));
+
+    } else if (!e.target.checked) {
+
+      let i: number = 0;
+      checks.controls.forEach((item: any) => {
+        if (item.value == e.target.value) {
+          checks.removeAt(i);
+        }
+        i++
+      })
+    }
+    // this.countCheck = Object.keys(checks.value).length;
+    this.Tipocheck = checks.value
+
+  }
+
+  Cambiocategoria(e: any) {
+
+    const checks: FormArray = this.formulariouser.get('categoriaschecks') as FormArray;
+
+    if (e.target.checked) {
+
+      checks.push(new FormControl(e.target.value));
+
+    } else if (!e.target.checked) {
+
+      let i: number = 0;
+      checks.controls.forEach((item: any) => {
+        if (item.value == e.target.value) {
+          checks.removeAt(i);
+        }
+        i++
+      })
+    }
+    // this.countCheck = Object.keys(checks.value).length;
+    this.Categoriacheck = checks.value
+
+    console.log(this.Categoriacheck)
+
+  }
 }

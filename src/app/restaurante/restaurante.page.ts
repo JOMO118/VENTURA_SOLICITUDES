@@ -20,49 +20,59 @@ export class RestaurantePage implements OnInit {
 
   listPedido: any = []
 
+  mostrarArea: any
+
   formularioRestaurante: FormGroup;
 
   ubicaciones = [
-    'ALM-Mantenimiento',
-    'ALM-Operaciones',
-    'COS-Compras',
-    'COS-Contabilidad',
-    'COS-Gerencia',
-    'COS-Operaciones',
-    'COS-Planeacion',
-    'COS-Recursos humanos',
-    'COS-TI',
-    'M13-Bomberos',
-    'M13-CCTV',
-    'M13-DIAN',
-    'M13-Operaciones',
-    'M13-Radicacion',
-    'M13-SST',
-    'M13-Subestacion',
-    'Opp-Almacen',
-    'OPP-Auditoria',
-    'Opp-Calidad',
-    'Opp-CCTV',
-    'Opp-Contenedor',
-    'Opp-Control Operativo',
-    'Opp-Equipo Movil',
-    'Opp-Infraestructura',
-    'Opp-Mercancias',
-    'Opp-Operaciones',
-    'Opp-Recepcion',
-    'Opp-Recursos humanos',
-    'Opp-Silos y Bodegas',
-    'Opp-SST',
-    'Opp-Subestacion',
-    'Opp-Taller Mantenimiento',
-    'Opp-TI',
-    'Opp-TorredeControl',
-    'ZFR-Operaciones',
-    'ZL-Oficina',
-    'ZOL-Almacen',
-    'ZOL-Enturnamiento',
-    'ZOL-Mantenimiento',
-    'ZOL-OficnaBGP',
+    'ALMAGRARIO',
+    'COSMOS',
+    'MUELLE 13',
+    'OPP',
+    'ZONA FRANCA',
+    'ZONA LOGISTICA',
+    'ZOL']
+
+  areas = [
+    'Mantenimiento',
+    'Operaciones',
+    'Compras',
+    'Contabilidad',
+    'Gerencia',
+    'Operaciones',
+    'Planeacion',
+    'Recursos humanos',
+    'TI',
+    'Bomberos',
+    'CCTV',
+    'DIAN',
+    'Operaciones',
+    'Radicacion',
+    'SST',
+    'Subestacion',
+    'Almacen',
+    'Auditoria',
+    'Calidad',
+    'CCTV',
+    'Contenedor',
+    'Control Operativo',
+    'Equipo Movil',
+    'Infraestructura',
+    'Mercancias',
+    'Operaciones',
+    'Recepcion',
+    'Recursos humanos',
+    'Silos y Bodegas',
+    'SST',
+    'Subestacion',
+    'Taller Mantenimiento',
+    'TorredeControl',
+    'Operaciones',
+    'Oficina',
+    'Almacen',
+    'Enturnamiento',
+    'Mantenimiento',
+    'OficnaBGP',
   ]
 
   constructor(public fb: FormBuilder, public alertController: AlertController) {
@@ -84,6 +94,12 @@ export class RestaurantePage implements OnInit {
     this.listPedido = JSON.parse(list)
     if (!this.listPedido) {
       this.listPedido = []
+    }
+
+    if (this.localname == 'user') {
+      this.mostrarArea = true
+    } else {
+      this.mostrarArea = false
     }
   }
 
@@ -127,13 +143,9 @@ export class RestaurantePage implements OnInit {
     let date = new Date(this.select_day)
     let value = { Fecha: date.toLocaleDateString('en-US'), Cantidad: this.formularioRestaurante.value.cantidad, Sitio: this.formularioRestaurante.value.sitio };
 
+    this.listPedido.push(value)
+    this.scrollbottom()
 
-    if (!this.listPedido.some((arr: any) => arr.Fecha === value.Fecha && arr.Sitio === value.Sitio)) {
-      this.listPedido.push(value)
-      this.scrollbottom()
-    } else {
-      this.alertExiste()
-    }
 
 
   }
@@ -141,14 +153,18 @@ export class RestaurantePage implements OnInit {
   async save_date() {
     const alert = await this.alertController.create({
       header: '¿Desea enviar este pedido?',
+      cssClass: 'custom-alert',
+
       buttons: [
         {
           text: 'NO',
           role: 'no',
+          cssClass: 'alert-button-confirm',
         },
         {
           text: 'SI',
           role: 'si',
+          cssClass: 'alert-button-cancel',
         },
       ],
     });
@@ -165,6 +181,7 @@ export class RestaurantePage implements OnInit {
         header: 'SOLICITUD ENVIADA',
         message: 'Su solicitud fue enviada con exito',
         buttons: ['OK'],
+        cssClass: 'alert-button-confirm',
       });
 
       await alert.present();
@@ -182,6 +199,7 @@ export class RestaurantePage implements OnInit {
     const alert = await this.alertController.create({
       header: "Este pedido ya existe",
       buttons: ["aceptar"],
+      cssClass: 'alert-button-confirm',
     });
 
     await alert.present();

@@ -95,16 +95,22 @@ export class InactivarpermisosPage implements OnInit {
   async summit() {
     console.clear();
 
+
     const alert = await this.alertController.create({
       header: '¿Desea eliminar estos permisos?',
+      cssClass: 'custom-alert',
+
       buttons: [
         {
           text: 'NO',
           role: 'no',
+          cssClass: 'alert-button-cancel',
+
         },
         {
           text: 'SI',
           role: 'si',
+          cssClass: 'alert-button-confirm',
         },
       ],
     });

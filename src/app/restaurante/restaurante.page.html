@@ -23,18 +23,32 @@
           <ion-label *ngIf="errorControl['cantidad'].errors['required']">campo obligatorio </ion-label>
           <ion-label *ngIf="errorControl['cantidad'].errors['pattern']">Erroneo </ion-label>
         </ion-item>
+
         <ion-item> <ion-label>Sitio</ion-label>
           <ion-select [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" interface="popover"
             placeholder="Seleccione el sitio" formControlName="sitio" (ionChange)="valor_fecha()">
             <div *ngFor="let item of ubicaciones">
               <ion-select-option value="{{item}}">{{item}} </ion-select-option>
-
             </div>
           </ion-select>
         </ion-item>
         <ion-item class="err" lines="none" *ngIf="errorControl['sitio'].errors">
           <ion-label *ngIf="errorControl['sitio'].errors['required']">campo obligatorio </ion-label>
         </ion-item>
+
+        <div *ngIf="mostrarArea">
+          <ion-item> <ion-label>Área</ion-label>
+            <ion-select [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" interface="popover"
+              placeholder="Seleccione el sitio" formControlName="sitio" (ionChange)="valor_fecha()">
+              <div *ngFor="let item of areas">
+                <ion-select-option value="{{item}}">{{item}} </ion-select-option>
+              </div>
+            </ion-select>
+          </ion-item>
+          <ion-item class="err" lines="none" *ngIf="errorControl['sitio'].errors">
+            <ion-label *ngIf="errorControl['sitio'].errors['required']">campo obligatorio </ion-label>
+          </ion-item>
+        </div>
       </form>
 
       <ion-datetime #datetime [min]="today" [isDateEnabled]="isWeekday" [(ngModel)]="select_day"
