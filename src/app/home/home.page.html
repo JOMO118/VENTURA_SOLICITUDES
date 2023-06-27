@@ -7,8 +7,8 @@
 
 
 <ion-card *ngIf="roles[1].mostrar || roles[0].mostrar">
-  <ion-card-header>
-    <ion-card-title class="text_card">Servicio de solicitud de permisos </ion-card-title>
+  <ion-card-header class="head_pad">
+    <ion-card-title class="text_card">Servicio de permisos de aplicativos</ion-card-title>
   </ion-card-header>
 
   <ion-card-content>
@@ -48,6 +48,21 @@
 
     <ion-button class="btn_card1" fill="clear" (click)="Pedir()">
       <img src="assets\icon\icon-restaurante.svg" alt="PEDIDO DE COMIDA">
+    </ion-button>
+
+
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="roles[3].mostrar">
+  <ion-card-header>
+    <ion-card-title class="text_card">Servicio de permisos y licencias</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+
+    <ion-button class="btn_card1" fill="clear" (click)="permisos()">
+      <img src="assets\icon\icon-licencia.svg" alt="licencias">
     </ion-button>
 
 

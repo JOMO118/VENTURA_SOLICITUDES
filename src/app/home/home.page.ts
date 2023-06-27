@@ -25,6 +25,9 @@ export class HomePage implements OnInit {
   inactivar() {
     this.router.navigate(['/inactivarpermisos']);
   }
+  permisos() {
+    this.router.navigate(['/user-licencia']);
+  }
 
   prueba() {
     this.roles = []
@@ -32,12 +35,14 @@ export class HomePage implements OnInit {
       this.roles = [
         { nombre: 'CREAR', mostrar: true },
         { nombre: 'INACTIVAR', mostrar: true },
-        { nombre: 'RESTAURANTE', mostrar: true }]
+        { nombre: 'RESTAURANTE', mostrar: true },
+        { nombre: 'GENERAR', mostrar: true }]
     } else if (this.localname === 'user') {
       this.roles = [
-        { nombre: 'CREAR', mostrar: true },
+        { nombre: 'CREAR', mostrar: false },
         { nombre: 'INACTIVAR', mostrar: false },
-        { nombre: 'RESTAURANTE', mostrar: true }]
+        { nombre: 'RESTAURANTE', mostrar: false },
+        { nombre: 'GENERAR', mostrar: true }]
     }
   }
 }

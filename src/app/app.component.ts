@@ -43,6 +43,8 @@ export class AppComponent {
       return 'SOLICITUD DE COMIDA';
     } else if (url === '/inactivarpermisos') {
       return 'CANCELAR SOLICITUD';
+    } else if (url === '/user-licencia') {
+      return 'PERMISOS Y LICENCIAS';
     } else {
       return ""
     }

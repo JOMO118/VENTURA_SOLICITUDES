@@ -1,33 +1,45 @@
-<ion-content>
-  <ion-item>
-    <ion-label>
-      <h1 class="welcome_header">Bienvenido {{localname}}
-        <br> al sistema de restaurante
-      </h1>
-    </ion-label>
+<ion-item>
+  <ion-label>
+    <h1 class="welcome_header">Bienvenido {{localname}}
+      <br> al sistema de restaurante
+    </h1>
+  </ion-label>
 
-  </ion-item>
-
-
-  <ion-card>
-    <ion-card-content>
+</ion-item>
 
 
-      <form [formGroup]="formularioRestaurante">
-        <ion-item>
-          <ion-label position="stacked">Pedido</ion-label>
-          <ion-input [clearInput]="true" placeholder="Ingrese la cantidad de comidas" formControlName="cantidad"
-            (ionChange)="valor_fecha()"></ion-input>
-        </ion-item>
-        <ion-item class="err" lines="none" *ngIf="errorControl['cantidad'].errors">
-          <ion-label *ngIf="errorControl['cantidad'].errors['required']">campo obligatorio </ion-label>
-          <ion-label *ngIf="errorControl['cantidad'].errors['pattern']">Erroneo </ion-label>
-        </ion-item>
+<ion-card>
+  <ion-card-content>
 
-        <ion-item> <ion-label>Sitio</ion-label>
+
+    <form [formGroup]="formularioRestaurante">
+      <ion-item>
+        <ion-label position="stacked">Pedido</ion-label>
+        <ion-input [clearInput]="true" placeholder="Ingrese la cantidad de comidas" formControlName="cantidad"
+          (ionChange)="valor_fecha()"></ion-input>
+      </ion-item>
+      <ion-item class="err" lines="none" *ngIf="errorControl['cantidad'].errors">
+        <ion-label *ngIf="errorControl['cantidad'].errors['required']">campo obligatorio </ion-label>
+        <ion-label *ngIf="errorControl['cantidad'].errors['pattern']">Erroneo </ion-label>
+      </ion-item>
+
+      <ion-item> <ion-label>Sitio</ion-label>
+        <ion-select [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" interface="popover"
+          placeholder="Seleccione el sitio" formControlName="sitio" (ionChange)="valor_fecha()">
+          <div *ngFor="let item of ubicaciones">
+            <ion-select-option value="{{item}}">{{item}} </ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+      <ion-item class="err" lines="none" *ngIf="errorControl['sitio'].errors">
+        <ion-label *ngIf="errorControl['sitio'].errors['required']">campo obligatorio </ion-label>
+      </ion-item>
+
+      <div *ngIf="mostrarArea">
+        <ion-item> <ion-label>Área</ion-label>
           <ion-select [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" interface="popover"
             placeholder="Seleccione el sitio" formControlName="sitio" (ionChange)="valor_fecha()">
-            <div *ngFor="let item of ubicaciones">
+            <div *ngFor="let item of areas">
               <ion-select-option value="{{item}}">{{item}} </ion-select-option>
             </div>
           </ion-select>
@@ -35,71 +47,56 @@
         <ion-item class="err" lines="none" *ngIf="errorControl['sitio'].errors">
           <ion-label *ngIf="errorControl['sitio'].errors['required']">campo obligatorio </ion-label>
         </ion-item>
+      </div>
+    </form>
 
-        <div *ngIf="mostrarArea">
-          <ion-item> <ion-label>Área</ion-label>
-            <ion-select [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" interface="popover"
-              placeholder="Seleccione el sitio" formControlName="sitio" (ionChange)="valor_fecha()">
-              <div *ngFor="let item of areas">
-                <ion-select-option value="{{item}}">{{item}} </ion-select-option>
-              </div>
-            </ion-select>
-          </ion-item>
-          <ion-item class="err" lines="none" *ngIf="errorControl['sitio'].errors">
-            <ion-label *ngIf="errorControl['sitio'].errors['required']">campo obligatorio </ion-label>
-          </ion-item>
-        </div>
-      </form>
-
-      <ion-datetime #datetime [min]="today" [isDateEnabled]="isWeekday" [(ngModel)]="select_day"
-        (ionChange)="valor_fecha()" presentation="date">
-      </ion-datetime>
-      <ion-button color="primary" class="btn-Form-end" [disabled]="state_button"
-        (click)="addPedido()">Agregar</ion-button>
+    <ion-datetime #datetime [min]="today" [isDateEnabled]="isWeekday" [(ngModel)]="select_day"
+      (ionChange)="valor_fecha()" presentation="date">
+    </ion-datetime>
+    <ion-button color="primary" class="btn-Form-end" [disabled]="state_button"
+      (click)="addPedido()">Agregar</ion-button>
 
 
-      <ion-card class="mar_top_card" *ngIf="listPedido.length !== 0">
-        <ion-grid class="tabla_list">
-          <ion-row class="thead ">
-            <ion-col size="3">
-              <ion-label class="LblColor"> Fecha</ion-label>
-            </ion-col>
-            <ion-col size="2">
-              <ion-label class="LblColor"> Cant.</ion-label>
-            </ion-col>
-            <ion-col size="4">
-              <ion-label class="LblColor"> Sitio</ion-label>
-            </ion-col>
-            <ion-col size="3">
-              <ion-label class="LblColor"> Cancelar</ion-label>
-            </ion-col>
+    <ion-card class="mar_top_card" *ngIf="listPedido.length !== 0">
+      <ion-grid class="tabla_list">
+        <ion-row class="thead ">
+          <ion-col size="3">
+            <ion-label class="LblColor"> Fecha</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label class="LblColor"> Cant.</ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label class="LblColor"> Sitio</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label class="LblColor"> Cancelar</ion-label>
+          </ion-col>
 
-          </ion-row>
-          <ion-row *ngFor="let lista of listPedido; let i = index">
-            <ion-col size="3">
-              <ion-label> {{lista.Fecha | date:'dd-MM-yyyy' }} </ion-label>
-            </ion-col>
-            <ion-col size="2">
-              <ion-label> {{lista.Cantidad }} </ion-label>
-            </ion-col>
-            <ion-col size="4">
-              <ion-label> {{lista.Sitio }} </ion-label>
-            </ion-col>
-            <ion-col size="3">
-              <ion-button color="danger" class="lista_delete" (click)="delete_date(i)">
-                <ion-icon slot="icon-only" name="close"></ion-icon>
-              </ion-button>
-            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let lista of listPedido; let i = index">
+          <ion-col size="3">
+            <ion-label> {{lista.Fecha | date:'dd-MM-yyyy' }} </ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-label> {{lista.Cantidad }} </ion-label>
+          </ion-col>
+          <ion-col size="4">
+            <ion-label> {{lista.Sitio }} </ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button color="danger" class="lista_delete" (click)="delete_date(i)">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
 
-          </ion-row>
-        </ion-grid>
-
-
-        <ion-button color="primary" (click)="save_date()" class="btn-Form-end">Guardar</ion-button>
-      </ion-card>
+        </ion-row>
+      </ion-grid>
 
 
-    </ion-card-content>
-  </ion-card>
+      <ion-button color="primary" (click)="save_date()" class="btn-Form-end">Guardar</ion-button>
+    </ion-card>
 
-</ion-content>
+
+  </ion-card-content>
+</ion-card>

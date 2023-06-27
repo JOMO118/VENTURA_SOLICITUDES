@@ -34,7 +34,11 @@ const routes: Routes = [
   {
     path: 'inactivarpermisos',
     loadChildren: () => import('./inactivarpermisos/inactivarpermisos.module').then( m => m.InactivarpermisosPageModule)
+  },  {
+    path: 'user-licencia',
+    loadChildren: () => import('./user-licencia/user-licencia.module').then( m => m.UserLicenciaPageModule)
   }
+
 ];
 
 @NgModule({

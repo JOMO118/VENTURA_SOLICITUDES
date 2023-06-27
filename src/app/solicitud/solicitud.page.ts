@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@ang
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.page.html',
@@ -140,7 +141,7 @@ export class SolicitudPage implements OnInit {
     },
   ];
 
-  Tipocheck: any;
+  Tipocheck: any[] = [];
   Categoriacheck: any;
 
 
@@ -482,51 +483,98 @@ export class SolicitudPage implements OnInit {
     }, 100);
   }
 
-  CambioTipo(e: any) {
+  // CambioTipo(e: any) {
+
+  //   const checks: FormArray = this.formulariouser.get('tiposchecks') as FormArray;
+
+
+  //   if (e.target.checked) {
+
+  //     checks.push(new FormControl(e.target.value));
+
+
+  //   } else if (!e.target.checked) {
+  //     let i: number = 0;
+  //     checks.controls.forEach((item: any) => {
+  //       if (item.value == e.target.value) {
+  //         checks.removeAt(i);
+
+  //         console.log(this.Categoriacheck)
+  //       }
+  //       i++
+  //     })
+  //   }
+  //   // this.countCheck = Object.keys(checks.value).length;
+  //   this.Tipocheck = checks.value
+
+
+  // }
+
+  // Cambiocategoria(e: any) {
+
+  //   const checks: FormArray = this.formulariouser.get('categoriaschecks') as FormArray;
+
+  //   if (e.target.checked) {
+
+  //     checks.push(new FormControl(e.target.value));
+
+  //   } else if (!e.target.checked) {
+
+  //     let i: number = 0;
+  //     checks.controls.forEach((item: any) => {
+  //       if (item.value == e.target.value) {
+  //         checks.removeAt(i);
+  //       }
+  //       i++
+  //     })
+  //   }
+  //   // this.countCheck = Object.keys(checks.value).length;
+  //   this.Categoriacheck = checks.value
+
+  // }
+
+  CambioTipo(tipo: any) {
 
     const checks: FormArray = this.formulariouser.get('tiposchecks') as FormArray;
-
-    if (e.target.checked) {
-
-      checks.push(new FormControl(e.target.value));
-
-    } else if (!e.target.checked) {
-
-      let i: number = 0;
-      checks.controls.forEach((item: any) => {
-        if (item.value == e.target.value) {
-          checks.removeAt(i);
-        }
-        i++
+    console.clear()
+    if (!tipo.seleccionado) {
+      tipo.categorias.forEach((categoria: any) => {
+        categoria.seleccionado = false;
+        categoria.aplicacion.forEach((app: any) => {
+          app.seleccionado = false;
+          this.actualizarSeleccionado(app)
+        })
+        this.actualizarSeleccionado(categoria)
       })
+    } else {
+      tipo.categorias.forEach((categoria: any) => {
+        categoria.aplicacion.forEach((app: any) => {
+          this.actualizarSeleccionado(app);
+        });
+        this.actualizarSeleccionado(categoria);
+      });
     }
-    // this.countCheck = Object.keys(checks.value).length;
-    this.Tipocheck = checks.value
+    this.actualizarSeleccionado(tipo)
+    console.log(this.Tipocheck)
 
   }
 
   Cambiocategoria(e: any) {
 
-    const checks: FormArray = this.formulariouser.get('categoriaschecks') as FormArray;
-
-    if (e.target.checked) {
-
-      checks.push(new FormControl(e.target.value));
-
-    } else if (!e.target.checked) {
-
-      let i: number = 0;
-      checks.controls.forEach((item: any) => {
-        if (item.value == e.target.value) {
-          checks.removeAt(i);
-        }
-        i++
-      })
-    }
-    // this.countCheck = Object.keys(checks.value).length;
-    this.Categoriacheck = checks.value
-
-    console.log(this.Categoriacheck)
-
   }
+
+  actualizarSeleccionado(element: any) {
+    if (element.seleccionado) {
+      if (!this.Tipocheck.includes(element)) {
+        this.Tipocheck.push(element)
+      } else {
+        const index = this.Tipocheck.findIndex((item: any) => item === element)
+        if (index !== -1) {
+          this.Tipocheck.splice(index, 1)
+        }
+      }
+    }
+  }
+
+
 }

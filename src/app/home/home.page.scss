@@ -9,8 +9,13 @@ ion-content {
 }
 
 ion-card {
-    height: 36vh;
+    height: 35vh;
+    margin-bottom: 10px;
     box-shadow: 0px 39px 38px -3px rgba(23, 83, 135, 0.6);
+}
+
+.head_pad {
+    padding: 15px 0px 0px 0px;
 }
 
 .text_card {
@@ -36,7 +41,7 @@ ion-card ion-card-content {
 
 
 .btn_card1 {
-    height: 20vh;
+    height: 15vh;
 }
 
 .btn_card1 img {
@@ -45,7 +50,7 @@ ion-card ion-card-content {
 }
 
 ion-grid ion-row ion-col ion-button {
-    height: 20vh;
+    height: 15vh;
 }
 
 @media screen and (min-width: 400px) {
@@ -53,6 +58,8 @@ ion-grid ion-row ion-col ion-button {
     ion-card {
         text-align: center;
         width: 90%;
+        height: 35vh;
+        margin-bottom: 10px;
         margin: auto auto 20px auto;
     }
 

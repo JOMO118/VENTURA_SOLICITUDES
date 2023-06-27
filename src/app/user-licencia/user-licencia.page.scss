@@ -1,0 +1,14 @@
+.welcome_header {
+    font-size: 3vw;
+    text-align: center;
+    font-weight: bold;
+}
+
+::ng-deep .mycomponent-wider-popover {
+    --width: 90%;
+    --max-width: 90%;
+}
+
+ion-item {
+    padding: 10px;
+}

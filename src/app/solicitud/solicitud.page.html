@@ -188,53 +188,35 @@
 
   <!-- ////////////////////////////////////////////////////////////////////// -->
 
-  <ion-list>
-    <ion-item *ngFor="let res of pruebaApi">
-      <ion-checkbox slot="start" value="{{res.nombre_tipo}}" (ionChange)="CambioTipo($event)"></ion-checkbox>
-      <ion-label>
-        {{res.nombre_tipo}}
-      </ion-label>
-    </ion-item>
-    <ion-list *ngFor="let restitle of Tipocheck">
-      <ion-item>
-        <h2>{{restitle}}</h2>
-      </ion-item>
-      <ion-list>
-        <div *ngFor="let res of pruebaApi">
-          <div *ngFor="let res2 of res.categorias">
-            <ion-item style="margin: 10px;" *ngIf=" restitle == res.nombre_tipo ">
-              <ion-checkbox slot="start" value="{{ res2.nombre_cat }}"
-                (ionChange)="Cambiocategoria($event)"></ion-checkbox>
-              <ion-label>
-                {{ res2.nombre_cat }}
-              </ion-label>
-            </ion-item>
-          </div>
-        </div>
-        <ion-list *ngFor="let restitle2 of Categoriacheck">
-          <ion-item>
-            <h2>{{restitle2}}</h2>
-          </ion-item>
-          <div *ngFor="let res of pruebaApi">
-            <div *ngFor="let res2 of res.categorias">
-              <div *ngFor="let res3 of res2.aplicacion">
-                <ion-item style="margin: 20px;" *ngIf="restitle2 == res2.nombre_cat && restitle == res.nombre_tipo">
-                  <ion-checkbox slot="start" value="{{ res3.nombreapp }}"></ion-checkbox>
-                  <ion-label>
-                    {{ res3.nombreapp }}
-                  </ion-label>
-                </ion-item>
-              </div>
-            </div>
-          </div>
-        </ion-list>
 
+
+  <ion-list *ngFor="let tipo of pruebaApi; let i = index">
+    <ion-item>
+      <ion-label>{{ tipo.nombre_tipo }}</ion-label>
+      <ion-checkbox [(ngModel)]="tipo.seleccionado" slot="start" value="{{tipo.nombre_tipo}}"
+        (ionChange)="CambioTipo(tipo)"></ion-checkbox>
+    </ion-item>
+    <ion-list *ngFor="let categoria of tipo.categorias">
+      <ion-list-header color="primary" *ngIf="tipo.seleccionado">
+        Categorías
+      </ion-list-header>
+      <ion-item *ngIf="tipo.seleccionado">
+        <ion-label>{{ categoria.nombre_cat }}</ion-label>
+        <ion-checkbox [(ngModel)]="categoria.seleccionado" slot="start" value="{{tipo.nombre_tipo}}"
+          (ionChange)="Cambiocategoria($event)"></ion-checkbox>
+      </ion-item>
+      <ion-list *ngIf="categoria.seleccionado">
+        <ion-list-header color="success">
+          Aplicaciones
+        </ion-list-header>
+        <ion-item *ngFor="let app of categoria.aplicacion">
+          <ion-label>{{ app.nombreapp }}</ion-label>
+          <ion-checkbox [(ngModel)]="app.seleccionado"></ion-checkbox>
+        </ion-item>
       </ion-list>
     </ion-list>
-
+    <ion-item-divider *ngIf="i !== pruebaApi.length -1"> </ion-item-divider>
   </ion-list>
-
-
 
 
 
