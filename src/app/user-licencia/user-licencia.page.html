@@ -5,47 +5,6 @@
   </ion-item>
   <ion-card>
 
-    <!-- <ion-card-content>
-      <ion-list>
-        <ion-item style="margin: 10px;">
-          <ion-select interface="popover" placeholder="Seleccione el motivo"
-            [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}">
-            <div *ngFor=" let motivo of motivos">
-              <ion-select-option value="{{motivo.descripcion}}">{{motivo.descripcion}}</ion-select-option>
-            </div>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-        <ion-col size="4" size-md="4" size-lg="2"> Fecha de inicio</ion-col>
-        <ion-col size="auto" size-md="4" size-lg="2">
-
-          <ion-datetime-button datetime="datetime1"></ion-datetime-button>
-
-          <ion-modal [keepContentsMounted]="true">
-            <ng-template>
-              <ion-datetime id="datetime1"></ion-datetime>
-            </ng-template>
-          </ion-modal>
-        </ion-col>
-
-        <ion-col size="4" size-md="4" size-lg="2">Fecha de salida</ion-col>
-        <ion-col size="auto" size-md="4" size-lg="2">
-          <ion-datetime-button datetime="datetime2"></ion-datetime-button>
-
-          <ion-modal [keepContentsMounted]="true">
-            <ng-template>
-              <ion-datetime id="datetime2"></ion-datetime>
-            </ng-template>
-          </ion-modal>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
- -->
     <form [formGroup]="motivoForm" (ngSubmit)="submitForm()">
       <ion-list>
         <ion-item>
@@ -68,18 +27,20 @@
 
         <ion-item *ngIf="motivoForm.get('motivo')?.value?.constancia">
           <ion-label>Adjuntar constancia</ion-label>
-          <ion-input type="file" formControlName="constancia" accept=".pdf, image/*"></ion-input>
+          <ion-input type="file" formControlName="constancia" accept=".pdf, image/*" multiple
+            (change)="FileChange($event.target)"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Fecha de inicio</ion-label>
-          <!-- <ion-datetime-button displayFormat="YYYY-MM-DD" formControlName="fechaInicio"></ion-datetime-button> -->
           <ion-datetime-button datetime="datetime"
-            [disabled]="motivoForm.get('fechaInicio')?.disabled "></ion-datetime-button>
+            [disabled]="motivoForm.get('fechaInicio')?.disabled"></ion-datetime-button>
 
           <ion-modal [keepContentsMounted]="true">
             <ng-template>
-              <ion-datetime id="datetime" formControlName="fechaInicio" [min]="getMinFecha()" [max]="getMaxFecha()">
+
+              <!-- [min]="getMinFecha()" [max]="getMaxFecha()" -->
+              <ion-datetime id="datetime" formControlName="fechaInicio">
               </ion-datetime>
             </ng-template>
           </ion-modal>
@@ -97,8 +58,8 @@
           </ion-modal>
         </ion-item>
 
-        <!-- [disabled]="motivoForm.invalid || motivoForm.get('fechaFin')?.disabled || motivoForm.get('fechaInicio')?.disabled " -->
-        <ion-button type="submit">Enviar</ion-button>
+        <ion-button type="submit"
+          [disabled]="motivoForm.invalid || motivoForm.get('fechaFin')?.disabled || motivoForm.get('fechaInicio')?.disabled ">Enviar</ion-button>
       </ion-list>
     </form>
   </ion-card>
