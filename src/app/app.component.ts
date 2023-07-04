@@ -77,6 +77,7 @@ export class AppComponent {
 
       this.router.navigate(['/login']);
       localStorage.removeItem('nombre')
+      localStorage.removeItem('usuario')
 
 
     }

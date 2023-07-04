@@ -43,6 +43,12 @@ export class HomePage implements OnInit {
         { nombre: 'INACTIVAR', mostrar: false },
         { nombre: 'RESTAURANTE', mostrar: false },
         { nombre: 'GENERAR', mostrar: true }]
+    } else {
+      this.roles = [
+        { nombre: 'CREAR', mostrar: false },
+        { nombre: 'INACTIVAR', mostrar: false },
+        { nombre: 'RESTAURANTE', mostrar: false },
+        { nombre: 'GENERAR', mostrar: true }]
     }
   }
 }

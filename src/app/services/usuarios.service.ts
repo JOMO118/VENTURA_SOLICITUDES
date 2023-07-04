@@ -9,19 +9,12 @@ import { ToastController } from '@ionic/angular';
 })
 export class UsuariosService {
 
-  public urlServer = "https://jsonplaceholder.typicode.com/users";
   public urlColaboradores = "http://172.30.200.230/ventura_app/Controller/Controller_ERP.php?action=consultarColaboradores&key=ea18f4ac841772dfd6709b172643f808";
-  public urllogin = "http://172.30.200.230/ventura_app/Controller/Controller_Login.php?action=ingresarSistema&key=ea18f4ac841772dfd6709b172643f808&";
+  public urllogin = "http://172.30.200.230/ventura_app/Controller/ApplicationPermitsAndLicenses/Controller_Login.php?action=ingresarSistema&key=ea18f4ac841772dfd6709b172643f808&";
+  public urlUser = "http://172.30.200.230/ventura_app/Controller/ApplicationPermitsAndLicenses/Controller_User.php?action=mostrar_info_user&key=ea18f4ac841772dfd6709b172643f808&usuario=";
 
   constructor(public http: HttpClient, public toastController: ToastController) { }
 
-  getUsuario(id: string): Observable<any> {
-    return this.http.get(this.urlServer + `/${id}`)
-  }
-
-  getAll() {
-    return this.http.get(this.urlServer)
-  }
 
   getAllColaboradores() {
     return this.http.get(this.urlColaboradores).pipe(
@@ -37,6 +30,19 @@ export class UsuariosService {
 
   getuser(usuario: String, password: String): Observable<any> {
     return this.http.get(this.urllogin + `usuario=${usuario}&password=${password}`).pipe(
+      map((res) => {
+        return res
+      }),
+      catchError((err) => {
+        this.mostrarError()
+        return err
+
+      })
+    )
+  }
+
+  getDataUser(usuario: String): Observable<any> {
+    return this.http.get(this.urlUser + `${usuario}`).pipe(
       map((res) => {
         return res
       }),

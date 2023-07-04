@@ -3,10 +3,36 @@
     <ion-label class="welcome_header">Bienvenido {{localname}}
     </ion-label>
   </ion-item>
+
+
+  <ion-card>
+    <ion-item>
+      <ion-label>Nombre del Empleado </ion-label>
+      <ion-input value="*********" [readonly]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cedula</ion-label>
+      <ion-input value="123456789" [readonly]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cargo</ion-label>
+      <ion-input value="N/A" [readonly]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Área</ion-label>
+      <ion-input value="N/A" [readonly]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Jefe Inmediato</ion-label>
+      <ion-input value="N/A" [readonly]="true"></ion-input>
+    </ion-item>
+  </ion-card>
+
   <ion-card>
 
     <form [formGroup]="motivoForm" (ngSubmit)="submitForm()">
       <ion-list>
+
         <ion-item>
           <ion-label>Tipo de motivo</ion-label>
           <ion-select [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" interface="popover"
@@ -31,6 +57,19 @@
             (change)="FileChange($event.target)"></ion-input>
         </ion-item>
 
+        <div *ngIf="miniaturas.length > 0">
+          <ion-label>Miniatura de documentos</ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6" *ngFor="let minia of miniaturas">
+                {{minia}}
+                <img src="minia" alt="documento">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </div>
+
         <ion-item>
           <ion-label>Fecha de inicio</ion-label>
           <ion-datetime-button datetime="datetime"
@@ -39,8 +78,8 @@
           <ion-modal [keepContentsMounted]="true">
             <ng-template>
 
-              <!-- [min]="getMinFecha()" [max]="getMaxFecha()" -->
-              <ion-datetime id="datetime" formControlName="fechaInicio">
+              <!-- " -->
+              <ion-datetime [min]="getMinFecha()" [max]="getMaxFecha()" id="datetime" formControlName="fechaInicio">
               </ion-datetime>
             </ng-template>
           </ion-modal>

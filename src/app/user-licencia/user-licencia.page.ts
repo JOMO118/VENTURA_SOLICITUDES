@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 
+import { UsuariosService } from 'src/app/services/usuarios.service';
+
 @Component({
   selector: 'app-user-licencia',
   templateUrl: './user-licencia.page.html',
@@ -10,9 +12,12 @@ import { AlertController } from '@ionic/angular';
 })
 export class UserLicenciaPage implements OnInit {
   localname = localStorage.getItem('nombre')
+  user: any = localStorage.getItem('user')
+  Datauser: any
 
-  documentos: File[] = [];
-  miniaturas: string[] = [];
+  images: File[] = [];
+  thumbnails: SafeResourceUrl[] = []
+  miniaturas: any[] = [];
 
 
   motivos = [
@@ -28,11 +33,11 @@ export class UserLicenciaPage implements OnInit {
 
   motivoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public alertController: AlertController, private sanitizer: DomSanitizer) {
+  constructor(private formBuilder: FormBuilder, public alertController: AlertController, private sanitizer: DomSanitizer, public usuariosservicios: UsuariosService) {
     this.motivoForm = this.formBuilder.group({
       'motivo': ['', Validators.required],
       'semestre': '',
-      'constancia': '',
+      'constancia': [''],
       'fechaInicio': ['', Validators.required],
       'fechaFin': ['', Validators.required],
     });
@@ -43,6 +48,15 @@ export class UserLicenciaPage implements OnInit {
       this.motivoForm.get('fechaInicio')?.disable()
       this.motivoForm.get('fechaFin')?.disable()
     }
+
+    this.datos()
+
+  }
+
+  async datos() {
+    await this.usuariosservicios.getDataUser(this.user).subscribe(res => {
+      this.Datauser = res
+    })
   }
 
 
@@ -104,19 +118,18 @@ export class UserLicenciaPage implements OnInit {
       for (let i = 0; i < archivos.length; i++) {
         const archivo: File = archivos[i];
         if (archivo.type === 'application/pdf' || archivo.type === 'image/png' || archivo.type === 'image/jpeg') {
-          this.documentos.push(archivo)
 
-          const reader = new FileReader();
+          this.images.push(archivo)
+          // const reader = new FileReader()
 
-          console.log('2')
+          // reader.onload = (a: any) => {
+          //   const urlArchivo = window.URL.createObjectURL(archivo)
+          //   console.log(urlArchivo)
+          //   console.log(a.result)
+          //   this.miniaturas.push(urlArchivo)
+          // };
+          // reader.readAsDataURL(archivo)
 
-          reader.onload = (ev: any) => {
-            console.log('3')
-            console.log(ev.result)
-            // this.miniaturas.push(e.result)
-          };
-          // const urlArchivo: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(archivo))
-          // console.log(urlArchivo)
         } else {
           console.log(archivo.name + ' archivo invalido')
         }

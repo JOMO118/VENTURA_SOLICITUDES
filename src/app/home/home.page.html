@@ -1,70 +1,73 @@
-<ion-item>
-  <ion-label>
-    <h1 class="welcome_header">Bienvenido {{localname}}</h1>
-  </ion-label>
-</ion-item>
+<div>
+  <ion-item>
+    <ion-label>
+      <h1 class="welcome_header">Bienvenido {{localname}}</h1>
+    </ion-label>
+  </ion-item>
+
+  <div class="container_content">
+
+    <ion-card *ngIf="roles[1].mostrar || roles[0].mostrar">
+      <ion-card-header class="head_pad">
+        <ion-card-title class="text_card">Servicio de permisos de aplicativos</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngIf="roles[0].mostrar">
+              <ion-label class="text_card">{{roles[0].nombre}}</ion-label>
+              <ion-button class="btn_card1" fill="clear" (click)="crearSolicitud()">
+                <img src="assets\icon\icon-crear.svg" alt="Crear solicitudes">
+              </ion-button>
+
+            </ion-col>
+            <ion-col *ngIf="roles[1].mostrar">
+              <ion-label class="text_card">{{roles[1].nombre}}</ion-label>
 
 
+              <ion-button class="btn_card1" fill="clear" (click)="inactivar()">
+                <img src="assets\icon\icon-inactivar.svg" alt="Inactivar solicitudes">
+              </ion-button>
 
-<ion-card *ngIf="roles[1].mostrar || roles[0].mostrar">
-  <ion-card-header class="head_pad">
-    <ion-card-title class="text_card">Servicio de permisos de aplicativos</ion-card-title>
-  </ion-card-header>
+            </ion-col>
 
-  <ion-card-content>
+          </ion-row>
+        </ion-grid>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col *ngIf="roles[0].mostrar">
-          <ion-label class="text_card">{{roles[0].nombre}}</ion-label>
-          <ion-button class="btn_card1" fill="clear" (click)="crearSolicitud()">
-            <img src="assets\icon\icon-crear.svg" alt="Crear solicitudes">
-          </ion-button>
-
-        </ion-col>
-        <ion-col *ngIf="roles[1].mostrar">
-          <ion-label class="text_card">{{roles[1].nombre}}</ion-label>
+      </ion-card-content>
+    </ion-card>
 
 
-          <ion-button class="btn_card1" fill="clear" (click)="inactivar()">
-            <img src="assets\icon\icon-inactivar.svg" alt="Inactivar solicitudes">
-          </ion-button>
+    <ion-card *ngIf="roles[2].mostrar">
+      <ion-card-header>
+        <ion-card-title class="text_card">{{roles[2].nombre}}</ion-card-title>
+      </ion-card-header>
 
-        </ion-col>
+      <ion-card-content>
 
-      </ion-row>
-    </ion-grid>
-
-  </ion-card-content>
-</ion-card>
-
-
-<ion-card *ngIf="roles[2].mostrar">
-  <ion-card-header>
-    <ion-card-title class="text_card">{{roles[2].nombre}}</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content>
-
-    <ion-button class="btn_card1" fill="clear" (click)="Pedir()">
-      <img src="assets\icon\icon-restaurante.svg" alt="PEDIDO DE COMIDA">
-    </ion-button>
+        <ion-button class="btn_card1" fill="clear" (click)="Pedir()">
+          <img src="assets\icon\icon-restaurante.svg" alt="PEDIDO DE COMIDA">
+        </ion-button>
 
 
-  </ion-card-content>
-</ion-card>
+      </ion-card-content>
+    </ion-card>
 
-<ion-card *ngIf="roles[3].mostrar">
-  <ion-card-header>
-    <ion-card-title class="text_card">Servicio de permisos y licencias</ion-card-title>
-  </ion-card-header>
+    <ion-card *ngIf="roles[3].mostrar">
+      <ion-card-header>
+        <ion-card-title class="text_card">Solicitud de permisos y licencias (F-PER-36)</ion-card-title>
+      </ion-card-header>
 
-  <ion-card-content>
+      <ion-card-content>
 
-    <ion-button class="btn_card1" fill="clear" (click)="permisos()">
-      <img src="assets\icon\icon-licencia.svg" alt="licencias">
-    </ion-button>
+        <ion-button class="btn_card1" fill="clear" (click)="permisos()">
+          <img src="assets\icon\icon-licencia.svg" alt="licencias">
+        </ion-button>
 
 
-  </ion-card-content>
-</ion-card>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
-import { error } from 'console';
 
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -50,10 +49,19 @@ export class LoginPage implements OnInit {
   }
 
 
-  validaruser() {
+  async validaruser() {
     var f = this.formulariologin.value
+    console.log(this.validate_message)
+    if (this.validate_message === "ok") {
+      await this.usuariosservicios.getDataUser(f.usuario).subscribe(res => {
+        console.log(res[0].ghe_nombres)
+        localStorage.setItem('nombre', res[0].ghe_nombres + " " + res[0].ghe_apellios)
+        localStorage.setItem('user', f.usuario)
+        this.router.navigate(['/home']);
+      }
+      );
 
-    if (this.validate_message === "ok" || f.usuario === "admin" || f.usuario === "user") {
+    } else if (f.usuario === "admin" || f.usuario === "user") {
       localStorage.setItem('nombre', f.usuario)
       this.router.navigate(['/home']);
     } else {
