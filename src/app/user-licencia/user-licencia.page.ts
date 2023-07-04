@@ -20,6 +20,13 @@ export class UserLicenciaPage implements OnInit {
   miniaturas: any[] = [];
 
 
+  disabledDates: Date[];
+  semestres = [
+    { nombre: '1', min: '01-01', max: '06-30' },
+    { nombre: '2', min: '07-01', max: '12-31' }
+  ]
+
+
   motivos = [
     { constancia: false, descripcion: "Permiso dia de cumpleaños" },
     { constancia: false, descripcion: "Enfermedad en el lugar de trabajo" },
@@ -41,6 +48,8 @@ export class UserLicenciaPage implements OnInit {
       'fechaInicio': ['', Validators.required],
       'fechaFin': ['', Validators.required],
     });
+
+    this.disabledDates = [];
   }
 
   ngOnInit() {
@@ -63,6 +72,7 @@ export class UserLicenciaPage implements OnInit {
   onMotivoChange() {
     const motivoSeleccionado = this.motivoForm.value.motivo.descripcion;
     const requiereConstancia = this.motivoForm.value.motivo.constancia;
+
     this.motivoForm.get('semestre')?.reset()
 
     if (motivoSeleccionado === "Dia de la Familia (Ley 1857)" || requiereConstancia) {
@@ -76,20 +86,29 @@ export class UserLicenciaPage implements OnInit {
     }
   }
 
-  AdcionalChange() {
+  AdicionalChange() {
     this.motivoForm.get('fechaInicio')?.enable()
     this.motivoForm.get('fechaFin')?.enable()
+
   }
 
 
   getMinFecha() {
     const semestreSeleccionado = this.motivoForm.value.semestre;
-    return semestreSeleccionado === '2' ? '2023-07-01' : '2023-01-01';
+    // return semestreSeleccionado === '2' ? '2023-07-01' : '2023-01-01';
+    const yearActual = new Date().getFullYear();
+    const minFecha = `${yearActual}-${semestreSeleccionado === '2' ? '07-01' : '01-01'}`;
+    return semestreSeleccionado ? minFecha : `${yearActual}-01-01`
+
   }
 
   getMaxFecha() {
     const semestreSeleccionado = this.motivoForm.value.semestre;
-    return semestreSeleccionado === '2' ? '2023-12-31' : '2023-06-30';
+    // return semestreSeleccionado === '2' ? '2023-12-31' : '2023-06-30'; 
+    const yearActual = new Date().getFullYear();
+    const maxFecha = `${yearActual}-${semestreSeleccionado === '2' ? '12-31' : '06-30'}`;
+    return semestreSeleccionado ? maxFecha : `${yearActual}-12-31`
+
   }
 
   async validarFechas() {
@@ -109,7 +128,7 @@ export class UserLicenciaPage implements OnInit {
   }
 
 
-  FileChange(e: any) {
+  async FileChange(e: any) {
     const archivos: FileList = e.files
 
     if (archivos && archivos.length > 0) {
@@ -119,19 +138,36 @@ export class UserLicenciaPage implements OnInit {
         const archivo: File = archivos[i];
         if (archivo.type === 'application/pdf' || archivo.type === 'image/png' || archivo.type === 'image/jpeg') {
 
-          this.images.push(archivo)
-          // const reader = new FileReader()
+          if (!this.images.some(item => item.name === archivo.name)) {
+            this.images.push(archivo)
 
-          // reader.onload = (a: any) => {
-          //   const urlArchivo = window.URL.createObjectURL(archivo)
-          //   console.log(urlArchivo)
-          //   console.log(a.result)
-          //   this.miniaturas.push(urlArchivo)
-          // };
-          // reader.readAsDataURL(archivo)
+            // const reader = new FileReader()
+
+            // reader.onload = (event: any) => {
+            //   const urlArchivo = event.target.result;
+            //   this.miniaturas.push(urlArchivo);
+            // };
+            // reader.readAsDataURL(archivo)
+
+          } else {
+            const alert = await this.alertController.create({
+              header: `${archivo.name} ya existe`,
+              buttons: ["aceptar"],
+              cssClass: 'alert-button-confirm',
+            });
+
+            await alert.present();
+          }
+
 
         } else {
-          console.log(archivo.name + ' archivo invalido')
+          const alert = await this.alertController.create({
+            header: `${archivo.name} es un archivo invalido`,
+            buttons: ["aceptar"],
+            cssClass: 'alert-button-confirm',
+          });
+
+          await alert.present();
         }
 
       }
@@ -139,6 +175,11 @@ export class UserLicenciaPage implements OnInit {
       this.motivoForm.get('fechaInicio')?.disable()
       this.motivoForm.get('fechaFin')?.disable()
     }
+    console.log(this.images)
+  }
+
+  eliminarDocumento(index: number) {
+    this.images.splice(index, 1)
   }
 
   submitForm() {
